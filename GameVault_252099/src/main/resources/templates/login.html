@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html lang="es" xmlns:th="http://www.thymeleaf.org" th:replace="~{layout/base :: layout(~{::title}, ~{::main})}">
+<head><title>Iniciar Sesión | GameVault</title></head>
+<body>
+    <main class="centro">
+        <div class="tarjeta autenticacion">
+            <h2>Iniciar Sesión</h2>
+            <div class="exito" th:if="${mensaje}" th:text="${mensaje}"></div>
+            <div class="error" th:if="${error}" th:text="${error}"></div>
+            <form th:action="@{/login}" method="post">
+                <label>Correo Electrónico</label>
+                <input type="email" name="email" placeholder="correo@ejemplo.com" required autofocus>
+                <label>Contraseña</label>
+                <input type="password" name="password" placeholder="Tu contraseña" required>
+                <button class="btn gradiente" type="submit">Ingresar</button>
+            </form>
+            <p class="muted">¿No tienes cuenta? <a th:href="@{/registro}">Regístrate aquí</a></p>
+        </div>
+    </main>
+</body>
+</html>

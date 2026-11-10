@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="es" xmlns:th="http://www.thymeleaf.org" th:fragment="layout(pageTitle, pageContent)">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title th:replace="${pageTitle}">GameVault</title>
+    <link rel="stylesheet" th:href="@{/css/estilos.css}">
+</head>
+<body>
+<header class="navegacion">
+    <a class="marca" th:href="@{/}">▣ GameVault</a>
+    <nav>
+        <a th:href="@{/juegos}">Catálogo</a>
+        <a th:href="@{/mis-juegos}">Mi Bóveda</a>
+        <a th:href="@{/juegos/nuevo}">Subir Juego</a>
+        <a th:if="${!autenticado}" th:href="@{/login}">Iniciar sesión</a>
+        <a th:if="${!autenticado}" th:href="@{/registro}" class="acento">Registro</a>
+        <a th:if="${autenticado}" th:href="@{/logout}" class="acento">Salir</a>
+    </nav>
+</header>
+<div class="contenido" th:replace="${pageContent}">
+    <main>Contenido de la página</main>
+</div>
+</body>
+</html>

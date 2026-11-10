@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="es" xmlns:th="http://www.thymeleaf.org" th:replace="~{layout/base :: layout(~{::title}, ~{::main})}">
+<head><title>Catálogo de Juegos | GameVault</title></head>
+<body>
+    <main class="contenedor">
+        <h1>Catálogo de Juegos</h1>
+        <form class="buscador" th:action="@{/juegos}" method="get">
+            <input type="search" name="buscar" th:value="${buscar}" placeholder="Buscar por título...">
+            <button class="btn" type="submit">Buscar</button>
+        </form>
+        <div class="vacio" th:if="${#lists.isEmpty(juegos)}">No se encontraron juegos. ¡Sé el primero en subir uno!</div>
+        <div class="grid" th:unless="${#lists.isEmpty(juegos)}">
+            <article class="tarjeta juego" th:each="juego : ${juegos}">
+                <img th:if="${juego.portadaUrl != null}" th:src="${juego.portadaUrl}" alt="Portada del juego">
+                <div th:unless="${juego.portadaUrl != null}" class="sin-portada">🎮</div>
+                <div class="cuerpo">
+                    <h3 th:text="${juego.titulo}">Título</h3>
+                    <p class="muted" th:text="${juego.categoria}">Categoría</p>
+                    <p th:text="${juego.descripcion}">Descripción</p>
+                    <p class="precio" th:text="'$' + ${juego.precio}">$0.00</p>
+                    <a class="btn gradiente" th:href="@{/juegos/detalle/{id}(id=${juego.id})}">Ver detalle</a>
+                </div>
+            </article>
+        </div>
+    </main>
+</body>
+</html>

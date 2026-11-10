@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html lang="es" xmlns:th="http://www.thymeleaf.org" th:replace="~{layout/base :: layout(~{::title}, ~{::main})}">
+<head><title>Detalle del Juego | GameVault</title></head>
+<body>
+    <main class="contenedor">
+        <div class="tarjeta detalle">
+            <img th:if="${juego.portadaUrl != null}" th:src="${juego.portadaUrl}" alt="Portada">
+            <div th:unless="${juego.portadaUrl != null}" class="sin-portada">🎮</div>
+            <div>
+                <h1 th:text="${juego.titulo}">Título del juego</h1>
+                <p class="muted" th:text="${juego.categoria}">Categoría</p>
+                <p th:text="${juego.descripcion}">Descripción</p>
+                <h2 class="precio" th:text="'$' + ${juego.precio}">$0.00</h2>
+                <p class="muted" th:text="'Publicado por: ' + ${juego.usuario.nombre}"></p>
+                <a class="btn secundario" th:href="@{/juegos}">Volver al catálogo</a>
+            </div>
+        </div>
+    </main>
+</body>
+</html>

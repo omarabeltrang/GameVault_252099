@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="es" xmlns:th="http://www.thymeleaf.org" th:replace="~{layout/base :: layout(~{::title}, ~{::main})}">
+<head><title>Mi Bóveda | GameVault</title></head>
+<body>
+    <main class="contenedor">
+        <div class="fila titular">
+            <div><h1>Mi Bóveda</h1><p class="muted">Bienvenido, <b th:text="${usuario.nombre}">Usuario</b>. Aquí puedes gestionar tus juegos.</p></div>
+            <a class="btn gradiente" th:href="@{/juegos/nuevo}">+ Nuevo Juego</a>
+        </div>
+        <div class="vacio" th:if="${#lists.isEmpty(juegos)}">
+            <h2>Aún no tienes juegos</h2>
+            <p>Sube tu primer juego para empezar a construir tu bóveda.</p>
+            <a class="btn gradiente" th:href="@{/juegos/nuevo}">Subir Juego</a>
+        </div>
+        <div class="grid" th:unless="${#lists.isEmpty(juegos)}">
+            <article class="tarjeta juego" th:each="juego : ${juegos}">
+                <img th:if="${juego.portadaUrl != null}" th:src="${juego.portadaUrl}" alt="Portada">
+                <div th:unless="${juego.portadaUrl != null}" class="sin-portada">🎮</div>
+                <div class="cuerpo">
+                    <h3 th:text="${juego.titulo}">Juego</h3>
+                    <p class="muted" th:text="${juego.categoria}">Categoría</p>
+                    <p class="precio" th:text="'$' + ${juego.precio}">$0.00</p>
+                    <div class="fila">
+                        <a class="btn secundario" th:href="@{/juegos/editar/{id}(id=${juego.id})}">Editar</a>
+                        <form th:action="@{/juegos/eliminar/{id}(id=${juego.id})}" method="post"
+                              onsubmit="return confirm('¿Eliminar este juego?');">
+                            <button class="btn peligro" type="submit">Eliminar</button>
+                        </form>
+                    </div>
+                </div>
+            </article>
+        </div>
+    </main>
+</body>
+</html>

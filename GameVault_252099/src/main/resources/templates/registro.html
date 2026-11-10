@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="es" xmlns:th="http://www.thymeleaf.org" th:replace="~{layout/base :: layout(~{::title}, ~{::main})}">
+<head><title>Crear Cuenta | GameVault</title></head>
+<body>
+    <main class="centro">
+        <div class="tarjeta autenticacion">
+            <h2>Crear Cuenta</h2>
+            <div class="error" th:if="${error}" th:text="${error}"></div>
+            <form th:action="@{/registro}" th:object="${usuario}" method="post">
+                <label>Nombre Completo</label>
+                <input type="text" th:field="*{nombre}" required>
+                <small class="error" th:if="${#fields.hasErrors('nombre')}" th:errors="*{nombre}"></small>
+                <label>Correo Electrónico</label>
+                <input type="email" th:field="*{email}" required>
+                <small class="error" th:if="${#fields.hasErrors('email')}" th:errors="*{email}"></small>
+                <label>Contraseña</label>
+                <input type="password" th:field="*{contrasena}" minlength="6" required>
+                <small class="muted">Mínimo 6 caracteres.</small>
+                <small class="error" th:if="${#fields.hasErrors('contrasena')}" th:errors="*{contrasena}"></small>
+                <button class="btn gradiente" type="submit">Registrarme</button>
+            </form>
+            <p class="muted">¿Ya tienes cuenta? <a th:href="@{/login}">Inicia sesión</a></p>
+        </div>
+    </main>
+</body>
+</html>
